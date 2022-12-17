@@ -1,0 +1,53 @@
+SELECT * FROM customers
+WHERE City LIKE 'L_n_on';
+ 
+SELECT * FROM customers
+WHERE Country IN ('Germany' , 'France' , 'UK' );
+
+SELECT * FROM customers
+WHERE Country NOT IN ('Germany' , 'France' , 'UK' );
+
+SELECT * FROM customers
+WHERE Country IN (SELECT Country FROM suppliers);
+
+SELECT COUNT(unitPrice) AS low_price_items FROM products
+WHERE 	UnitPrice < 200;
+
+SELECT CONCAT(Address, " ", City, " " , Country)
+AS Address
+FROM Customers;
+
+SELECT CHAR_LENGTH(CompanyName) AS LengthOfName FROM customers;
+
+SELECT * FROM products
+WHERE Unitprice > ANY (SELECT UnitPrice FROM Products
+WHERE UnitPrice > 50);
+
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country 
+ORDER BY COUNT(CustomerID) DESC; 
+
+SELECT Orders.OrderID,customers.ContactName, customers.CompanyName
+FROM Orders
+INNER JOIN customers ON Orders.CustomerID = customers.CustomerID;
+
+SELECT customers.ContactName , Orders.OrderID
+FROM customers
+LEFT OUTER JOIN Orders ON customers.CustomerID = Orders.CustomerID
+ORDER BY customers.ContactName;
+
+SELECT customers.ContactName , Orders.OrderID
+FROM customers
+RIGHT OUTER JOIN Orders ON customers.CustomerID = Orders.CustomerID
+ORDER BY customers.ContactName;
+
+SELECT Orders.orderID, employees.LastName, employees.FirstName
+FROM orders
+RIGHT JOIN employees ON Orders.EmployeeID = Employees.EmployeeID
+ORDER BY Orders.orderID;
+
+SELECT customers.ContactName, customers.CompanyName, orders.OrderID
+FROM customers
+CROSS JOIN orders
+WHERE customers.CustomerID - orders.CustomerID;

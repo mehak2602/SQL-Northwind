@@ -1,0 +1,23 @@
+select seller_id, item_brand 
+	from orders 
+	inner join items on orders.item_id = items.item_id;
+    
+    select seller_id, item_brand 
+	from orders 
+	inner join items on orders.item_id = items.item_id
+	where (seller_id, order_date) in 
+	(select seller_id, 
+	min(order_date) as order_date 
+	from orders);
+    
+    select seller_id, item_brand
+	from orders 
+	inner join items on orders.item_id = items.item_id
+	where (seller_id, order_date) in 
+	(select seller_id, 
+	min(order_date) as order_date
+	from orders
+	where (seller_id, order_date) not in
+	(select seller_id, min(order_date)
+	from orders
+	group by seller_id));

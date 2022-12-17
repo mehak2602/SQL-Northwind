@@ -1,0 +1,40 @@
+SELECT UnitPrice
+FROM products
+WHERE UnitPrice = ANY 
+(SELECT UnitPrice
+FROM orderdetails
+WHERE quantity > 10);
+
+SELECT orderID, UnitPrice, Quantity, Discount, Unitprice - Discount 
+AS 'Net Price' 
+FROM orderdetails;
+
+SELECT orderID, UnitPrice, Quantity, Discount, Unitprice * Quantity
+AS 'Gross Amount' 
+FROM orderdetails;
+
+SELECT * FROM orderdetails;
+
+SELECT * FROM products;
+
+SELECT ProductName
+FROM products
+WHERE ProductID = ALL
+(SELECT ProductID FROM orderdetails);
+
+SELECT OrderID 
+FROM orderdetails
+GROUP BY OrderID
+HAVING MAX(Quantity) > ALL (SELECT AVG(Quantity) FROM orderdetails GROUP BY OrderID);
+
+SELECT DISTINCT CategoryID
+FROM products
+WHERE ProductID = ANY (SELECT ProductID FROM orderdetails);
+
+SELECT ProductName
+FROM products
+WHERE ProductID = ANY (Select ProductID FROM orderdetails WHERE Quantity = 12);
+
+SELECT CEIL(32.5);
+
+SELECT curtime();

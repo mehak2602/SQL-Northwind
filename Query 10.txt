@@ -1,0 +1,36 @@
+SELECT * FROM departments;
+INSERT INTO dept_manager (emp_no, dept_no, from_date, to_date)
+VALUEs ('1', 'd1' , '26/04/01' , '26/05/02' );
+
+select * from employees;
+
+DELETE FROM departments
+WHERE dept_no = '1';
+SELECT * FROM departments;
+SELECT * FROM dept_manager;
+SELECT * FROM dept_emp;
+SELECT * FROM employees;
+SELECT * FROM salaries;
+UPDATE salaries
+SET salary = '64' 
+WHERE emp_no = '2';
+
+SELECT salaries.emp_no , dept_emp.dept_no, employees.first_name, departments.dept_name, salaries.salary 
+FROM dept_emp
+JOIN salaries on salaries.emp_no = dept_emp.emp_no 
+JOIN  employees ON dept_emp.emp_no = employees.emp_no 
+JOIN departments ON dept_emp.dept_no = departments.dept_no;
+
+SELECT salaries.emp_no ,employees.first_name, 
+departments.dept_name, salaries.salary 
+FROM dept_emp
+JOIN salaries on salaries.emp_no = dept_emp.emp_no
+JOIN  employees ON dept_emp.emp_no = employees.emp_no
+JOIN departments ON dept_emp.dept_no = departments.dept_no
+GROUP BY salaries.salary HAVING COUNT(*) >'1';
+
+SELECT salaries.emp_no, dept_emp.dept_no, employees.first_name, departments.dept_no
+FROM dept_emp
+JOIN salaries ON salaries.emp_no = dept_emp.emp_no
+JOIN employees ON dept_emp.emp_no = employees.emp_no
+JOIN departments ON dept_emp.dept_no = departments.dept_no;

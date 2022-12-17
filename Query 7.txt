@@ -1,0 +1,26 @@
+CREATE TABLE t 
+(id int not null, 
+Client_id int not null, 
+driver_id int not null, 
+city_id int not null, 
+stat varchar(255), 
+req_id date,
+primary key (ID));
+
+select * from t;
+
+Insert into t (id, Client_id, driver_id, city_id, stat, req_id)
+VALUES('6' , '3', '10' , '6' , 'cncd' , '2017-08-01');
+
+select t.req_id as day, count(*) as total,
+sum( stat = 'cncd' ) as num_cncd,
+avg( stat = 'cncd' ) as cncd_rate
+FROM t
+where req_id >= '2017-08-01' and req_id <= '2017-08-04'
+group by req_id;
+
+Create table new 
+(users_id int not null, 
+banned enum('yes', 'no') not null,
+roles enum('other' , 'partner'), 
+primary key (users_id));
